@@ -25,7 +25,7 @@ node {
     }
 //    
     stage('SonarQube Analysis') {
-        withSonarQubeEnv(credentialsId: 'sonar-test', installationName: 'sonarqube') { // You can override the credential to be used
+        withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonarqube') { // You can override the credential to be used
        		sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://20.185.60.52// -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
         }
 	timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
@@ -59,7 +59,7 @@ node {
     }
 //
     stage('Deploy to Prod') {
-	      deploy adapters: [tomcat7(credentialsId: 'AWStomcat', path: '', url: 'http://40.85.175.166:8080/')], contextPath: '/ProdWebapp', war: '**/*.war'
+	      deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://40.85.175.166:8080/')], contextPath: '/ProdWebapp', war: '**/*.war'
 	     jiraSendDeploymentInfo environmentId: 'Staging', environmentName: 'Staging', environmentType: 'staging', serviceIds: ['http://40.85.175.166:8080/ProdWebapp'], site: 'devopsbc.atlassian.net', state: 'successful'
 	     jiraSendDeploymentInfo environmentId: 'Prod', environmentName: 'prod', environmentType: 'production', serviceIds: ['http://40.85.175.166:8080/ProdWebapp'], site: 'devopsbc.atlassian.net', state: 'successful'
          }
