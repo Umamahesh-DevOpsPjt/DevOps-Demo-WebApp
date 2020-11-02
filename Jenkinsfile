@@ -71,8 +71,8 @@ node {
 	slackSend channel: 'tcsdevopstalk', message: "Build Completed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", tokenCredentialId: 'slack'
  }
  catch (exc) {
- 	echo 'I failed'
-	slackSend channel: 'tcsdevopstalk', message: "Build Failed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", tokenCredentialId: 'slack'
+ 	//echo 'I failed'
+	//slackSend channel: 'tcsdevopstalk', message: "Build Failed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", tokenCredentialId: 'slack'
  }
  finally {
 	if (currentBuild.result == 'failure') {
