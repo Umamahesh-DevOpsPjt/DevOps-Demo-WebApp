@@ -15,7 +15,7 @@ node {
 	    stage('Artifactory Configuration'){  
     // Tool name from Jenkins configuration
     
-	rtMaven.tool = "Maven-3.3.9"
+	rtMaven.tool = "maven"
 	
     // Set Artifactory repositories for dependencies resolution and artifacts deployment.
     
@@ -27,7 +27,7 @@ node {
    
     
   stage('SonarQube') {
-       withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonarqube') { // You can override the credential to be used
+       withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') { // You can override the credential to be used
      		sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://20.185.60.52// -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
         }
 	timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
