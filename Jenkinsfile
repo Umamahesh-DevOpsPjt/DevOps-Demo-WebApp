@@ -41,8 +41,8 @@ node {
     }
 //
     stage('Deploy to Test') {
-	deploy adapters: [tomcat7(credentialsId: 'AWStomcat', path: '', url: 'http://52.167.166.3:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
-	jiraSendDeploymentInfo environmentId: 'Test', environmentName: 'QA test', environmentType: 'testing', serviceIds: ['http://52.167.166.3:8080/QAWebapp/'], site: 'devopsbc.atlassian.net', state: 'successful'
+	deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://52.167.166.3:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
+	//jiraSendDeploymentInfo environmentId: 'Test', environmentName: 'QA test', environmentType: 'testing', serviceIds: ['http://52.167.166.3:8080/QAWebapp/'], site: 'devopsbc.atlassian.net', state: 'successful'
     }
 //
     stage('Store the Artifacts') {
