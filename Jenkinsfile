@@ -26,7 +26,7 @@ node {
    
     
   stage('SonarQube') {
-       withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') { 
+       withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube') { 
      		sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://34.72.139.131// -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
         }
 	timeout(time: 1, unit: 'HOURS') { // If something goes wrong, pipeline will be killed after a timeout
