@@ -30,9 +30,9 @@ node {
      		sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://34.72.139.131// -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
         }
 	timeout(time: 1, unit: 'HOURS') { // If something goes wrong, pipeline will be killed after a timeout
-	    def quilategate = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-	    if (quilategate.status != 'OK') {
-	      error "Pipeline aborted due to quality gate failure: ${quilategate.status}"
+	    def qualitygate = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+	    if (qualitygate.status != 'OK') {
+	      error "Pipeline aborted due to quality gate failure: ${qualitygate.status}"
 	    }
 	}             
   }
