@@ -79,7 +79,7 @@ node {
             echo 'Build is unstable'
 	     error " failed"
         } else {
-		echo 'Build is stable, Build Successfully' ${env.BUILD_NUMBER}
+		echo 'Build is stable, Build Successfully ${env.BUILD_NUMBER}'
         }
  }
 }
