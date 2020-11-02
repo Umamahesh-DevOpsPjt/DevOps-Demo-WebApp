@@ -14,7 +14,7 @@ node {
     }
 	    
 	stage('Artifactory Configuration') {  
-        rtMaven.tool = "Maven3.6.3"
+        rtMaven.tool = "Maven"
 	
     // Set Artifactory repositories for dependencies resolution and artifacts deployment.
     
