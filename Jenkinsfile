@@ -14,7 +14,7 @@ node {
     }
 	    
 	stage('Artifactory Configuration') {  
-        rtMaven.tool = "maven"
+        rtMaven.tool = "Maven-3.6.3"
 	
     // Set Artifactory repositories for dependencies resolution and artifacts deployment.
     
@@ -38,7 +38,7 @@ node {
   //}
     
     stage('Maven build') {
-        buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
+        buildInfo = rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install', buildInfo: buildInfo
     }
 
     stage('Deploy to Test') {
