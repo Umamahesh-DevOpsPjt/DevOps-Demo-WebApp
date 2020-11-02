@@ -60,8 +60,8 @@ node {
 //
     stage('Deploy to Prod') {
 	      deploy adapters: [tomcat7(credentialsId: 'tomcat', path: '', url: 'http://40.85.175.166:8080/')], contextPath: '/ProdWebapp', war: '**/*.war'
-	     jiraSendDeploymentInfo environmentId: 'Staging', environmentName: 'Staging', environmentType: 'staging', serviceIds: ['http://40.85.175.166:8080/ProdWebapp'], site: 'devopsbc.atlassian.net', state: 'successful'
-	     jiraSendDeploymentInfo environmentId: 'Prod', environmentName: 'prod', environmentType: 'production', serviceIds: ['http://40.85.175.166:8080/ProdWebapp'], site: 'devopsbc.atlassian.net', state: 'successful'
+	     //jiraSendDeploymentInfo environmentId: 'Staging', environmentName: 'Staging', environmentType: 'staging', serviceIds: ['http://40.85.175.166:8080/ProdWebapp'], site: 'devopsbc.atlassian.net', state: 'successful'
+	     //jiraSendDeploymentInfo environmentId: 'Prod', environmentName: 'prod', environmentType: 'production', serviceIds: ['http://40.85.175.166:8080/ProdWebapp'], site: 'devopsbc.atlassian.net', state: 'successful'
          }
 //
     stage('Sanity Test') {
