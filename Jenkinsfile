@@ -9,20 +9,22 @@ node {
     	def rtMaven = Artifactory.newMavenBuild()
     	def buildInfo 
 	
+	stage('Clone source') {
+        git url: 'https://github.com/Umamahesh-DevOpsPjt/DevOps-Demo-WebApp.git'
+    }
+	    stage('Artifactory Configuration'){  
     // Tool name from Jenkins configuration
     
-	rtMaven.tool = "maven"
+	rtMaven.tool = "Maven-3.3.9"
 	
     // Set Artifactory repositories for dependencies resolution and artifacts deployment.
     
         rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
         rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
-  
+	    }
 	//slackSend channel: 'tcsdevopstalk', message: "started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", tokenCredentialId: 'slack'
 	    
-    stage('Clone source') {
-        git url: 'https://github.com/Umamahesh-DevOpsPjt/DevOps-Demo-WebApp.git'
-    }
+   
     
   stage('SonarQube') {
        withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonarqube') { // You can override the credential to be used
@@ -45,7 +47,7 @@ node {
 	//jiraSendDeploymentInfo environmentId: 'Test', environmentName: 'QA test', environmentType: 'testing', serviceIds: ['http://52.167.166.3:8080/QAWebapp/'], site: 'devopsbc.atlassian.net', state: 'successful'
     }
 
-    stage('Store the Artifacts') {
+    stage('Publish build info') {
         server.publishBuildInfo buildInfo
     }
 
