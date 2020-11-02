@@ -12,10 +12,9 @@ node {
 	stage('Clone source') {
         git url: 'https://github.com/Umamahesh-DevOpsPjt/DevOps-Demo-WebApp.git'
     }
-	    stage('Artifactory Configuration'){  
-    // Tool name from Jenkins configuration
-    
-	rtMaven.tool = "maven"
+	    
+	stage('Artifactory Configuration') {  
+        rtMaven.tool = "maven"
 	
     // Set Artifactory repositories for dependencies resolution and artifacts deployment.
     
@@ -27,13 +26,13 @@ node {
    
     
   stage('SonarQube') {
-       withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') { // You can override the credential to be used
-     		sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://20.185.60.52// -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
+       withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') { 
+     		sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://34.72.139.131// -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
         }
-	timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
-	    def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-	    if (qg.status != 'OK') {
-	      error "Pipeline aborted due to quality gate failure: ${qg.status}"
+	timeout(time: 1, unit: 'HOURS') { // If something goes wrong, pipeline will be killed after a timeout
+	    def quilategate = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+	    if (quilategate.status != 'OK') {
+	      error "Pipeline aborted due to quality gate failure: ${quilategate.status}"
 	    }
 	}             
   }
@@ -43,8 +42,8 @@ node {
     }
 
     stage('Deploy to Test') {
-	deploy adapters: [tomcat8(credentialsId: 'tomcat', path: '', url: 'http://52.167.166.3:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
-	//jiraSendDeploymentInfo environmentId: 'Test', environmentName: 'QA test', environmentType: 'testing', serviceIds: ['http://52.167.166.3:8080/QAWebapp/'], site: 'devopsbc.atlassian.net', state: 'successful'
+	deploy adapters: [tomcat8(credentialsId: 'tomcat', path: '', url: 'http://104.197.11.170:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
+	//jiraSendDeploymentInfo environmentId: 'Test', environmentName: 'QA test', environmentType: 'testing', serviceIds: ['http://104.197.11.170:8080/QAWebapp/'], site: 'devopsbc.atlassian.net', state: 'successful'
     }
 
     stage('Publish build info') {
@@ -61,9 +60,9 @@ node {
     }
 
     stage('Deploy to Prod') {
-	      deploy adapters: [tomcat8(credentialsId: 'tomcat', path: '', url: 'http://40.85.175.166:8080/')], contextPath: '/ProdWebapp', war: '**/*.war'
-	     //jiraSendDeploymentInfo environmentId: 'Staging', environmentName: 'Staging', environmentType: 'staging', serviceIds: ['http://40.85.175.166:8080/ProdWebapp'], site: 'devopsbc.atlassian.net', state: 'successful'
-	     //jiraSendDeploymentInfo environmentId: 'Prod', environmentName: 'prod', environmentType: 'production', serviceIds: ['http://40.85.175.166:8080/ProdWebapp'], site: 'devopsbc.atlassian.net', state: 'successful'
+	      deploy adapters: [tomcat8(credentialsId: 'tomcat', path: '', url: 'http://35.239.93.241:8080/')], contextPath: '/ProdWebapp', war: '**/*.war'
+	     //jiraSendDeploymentInfo environmentId: 'Staging', environmentName: 'Staging', environmentType: 'staging', serviceIds: ['http://35.239.93.241:8080/ProdWebapp'], site: 'devopsbc.atlassian.net', state: 'successful'
+	     //jiraSendDeploymentInfo environmentId: 'Prod', environmentName: 'prod', environmentType: 'production', serviceIds: ['http://35.239.93.241:8080/ProdWebapp'], site: 'devopsbc.atlassian.net', state: 'successful'
         }
 
     stage('Sanity Test') {
