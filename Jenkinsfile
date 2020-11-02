@@ -68,7 +68,7 @@ node {
         buildInfo = rtMaven.run pom: 'Acceptancetest/pom.xml', goals: 'test'
 	publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\Acceptancetest\\target\\surefire-reports', reportFiles: 'index.html', reportName: 'Sanity Test Report', reportTitles: ''])
     }
-	slackSend channel: 'tcsdevopstalk', message: "Build Completed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", tokenCredentialId: 'slack'
+	//slackSend channel: 'tcsdevopstalk', message: "Build Completed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", tokenCredentialId: 'slack'
  }
  catch (exc) {
  	//echo 'I failed'
