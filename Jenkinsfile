@@ -2,36 +2,23 @@ node {
     try{
     // Get Artifactory server instance, defined in the Artifactory Plugin administration page
     
-    //	def server = Artifactory.server "artifactory"
+    	def server = Artifactory.server "artifactory"
     
     // Create an Artifactory Maven instance.
     
-    	//def rtMaven = Artifactory.newMavenBuild()
-    	//def buildInfo 
+    	def rtMaven = Artifactory.newMavenBuild()
+    	def buildInfo 
 	    
-	    
-    env.JAVA_HOME="${tool 'Java8'}"
-    env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
-    def server = Artifactory.server('artifactory')
-    def artifactoryMaven = Artifactory.newMavenBuild()
-    artifactoryMaven.tool = 'maven'
-    artifactoryMaven.deployer releaseRepo:'wm-java', snapshotRepo:'libs-snapshot-local', server: server
-    def buildInfo = Artifactory.newBuildInfo()
-    artifactoryMaven.opts = "-Dskip.tests=true"    
-	    
-	
+      
 	stage('Clone source') {
         git url: 'https://github.com/Umamahesh-DevOpsPjt/DevOps-Demo-WebApp.git'
     }
 	    
-	//stage('Artifactory Configuration') {  
-       // rtMaven.tool = "maven"
-	
-    // Set Artifactory repositories for dependencies resolution and artifacts deployment.
-    
-       // rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
-       // rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
-	   // }
+	stage('Artifactory Configuration') {  
+        rtMaven.tool = "maven"   
+        rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
+        rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
+	    }
 	//slackSend channel: 'tcsdevopstalk', message: "started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", tokenCredentialId: 'slack'
 	    
    
@@ -49,7 +36,7 @@ node {
   //}
     
     stage('Maven build') {
-        buildInfo = rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install', buildInfo: buildInfo
+        buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean package', buildInfo: buildInfo
     }
 
     stage('Deploy to Test') {
