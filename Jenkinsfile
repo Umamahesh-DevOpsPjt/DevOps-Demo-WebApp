@@ -76,7 +76,7 @@ node {
  }
  finally {
 	if (currentBuild.result == 'failure') {
-            echo 'Build is unstable :/'
+            echo 'Build is unstable'
 	     error " failed"
         } else {
 		echo 'Build is stable, Build Successfully ${currentBuild.result}'
