@@ -18,7 +18,7 @@ node {
         rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
         rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
 //  
-	slackSend channel: 'tcsdevopstalk', message: "started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", tokenCredentialId: 'slack'
+	//slackSend channel: 'tcsdevopstalk', message: "started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", tokenCredentialId: 'slack'
 //	    
     stage('Clone source') {
         git url: 'https://github.com/Umamahesh-DevOpsPjt/DevOps-Demo-WebApp.git'
