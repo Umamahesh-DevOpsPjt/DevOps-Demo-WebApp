@@ -35,9 +35,9 @@ node {
 	//}             
   //}
     
-    stage('Maven build') {
-        buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean package', buildInfo: buildInfo
-    }
+    //stage('Maven build') {
+     //   buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean package', buildInfo: buildInfo
+   // }
 
     stage('Deploy to Test') {
 	deploy adapters: [tomcat8(credentialsId: 'tomcat', path: '', url: 'http://104.197.11.170:8080/')], contextPath: '/QAWebapp', war: '**/*.war'
