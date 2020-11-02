@@ -25,8 +25,7 @@ node {
     
   stage('SonarQube') {
        withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube') { 
-     	sh 'mvn clean package sonar:sonar
-	       //-Dsonar.host.url=http://34.72.139.131:9000/ -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
+     	sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://34.72.139.131:9000/ -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
         }
 	  
   stage(Quality Gate){	  	  
