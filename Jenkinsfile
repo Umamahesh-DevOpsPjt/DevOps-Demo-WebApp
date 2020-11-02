@@ -34,7 +34,8 @@ node {
 	    if (qualitygate.status != 'OK') {
 	      error "Pipeline aborted due to quality gate failure: ${qualitygate.status}"
 	    }
-	}             
+	}  
+  }
   }
     
     stage('Maven build') {
