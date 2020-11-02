@@ -24,7 +24,7 @@ node {
         git url: 'https://github.com/Umamahesh-DevOpsPjt/DevOps-Demo-WebApp.git'
     }
 //    
-    stage('SonarQube Analysis') {
+    stage('SonarQube') {
         withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonarqube') { // You can override the credential to be used
        		sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://20.185.60.52// -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
         }
