@@ -7,7 +7,7 @@ pipeline {
 	 stages {
                  stage('Clone source') {
                  steps {
-                      git url: 'https://github.com/nanbanvenkat/DevOps-Demo-WebApp.git'
+                      git url: 'https://github.com/Umamahesh-DevOpsPjt/DevOps-Demo-WebApp.git'
                  	}
                  }
 		 
@@ -33,6 +33,5 @@ pipeline {
 		         	
             	        
                
-	 }        	               
-        
+	 }        	                       
 }
