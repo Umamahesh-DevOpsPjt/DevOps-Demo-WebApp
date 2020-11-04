@@ -23,8 +23,7 @@ pipeline {
 			   def scannerHome = tool 'sonarqube'
                             withSonarQubeEnv('sonarqube') { 
 			    sh "${scannerHome}/bin/sonar-scanner"
-     			    sh 'mvn clean package sonar:sonar'
-			   //-Dsonar.host.url=http://35.188.155.53:9000/ -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
+     			    sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://35.188.155.53:9000/ -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
         			}
 			    }
 			}
