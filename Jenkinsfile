@@ -38,14 +38,14 @@ pipeline {
 		// }		 
 		 
                  stage('Deploy to test') {
-                 steps {
+                  steps {
                   deploy adapters: [tomcat8(url: 'http://146.148.76.89:8080/', credentialsId: 'tomcat', path: '' )], contextPath: '/QAWebapp', war: '**/*.war'
 	            }
                  }
 		 
 		 
 		 stage('Deploy Artifact'){
-			 stesp{	
+			 steps{	
 				 rtServer(
 				id: 'artifactory',
    				 url: 'https://venkatdevops.jfrog.io/artifactory',
