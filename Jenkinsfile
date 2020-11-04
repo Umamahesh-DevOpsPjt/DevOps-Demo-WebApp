@@ -35,13 +35,31 @@ pipeline {
                            //    waitForQualityGate abortPipeline: true 
 			//	}
 			// }
-		// }
+		// }		 
 		 
                  stage('Deploy to test') {
                  steps {
                   deploy adapters: [tomcat8(url: 'http://146.148.76.89:8080/', credentialsId: 'tomcat', path: '' )], contextPath: '/QAWebapp', war: '**/*.war'
 	            }
                  }
+		 
+		 
+		 stage('Deploy Artifact'){
+			 stesp{	
+				 rtServer(
+				id: 'artifactory',
+   				 url: 'https://venkatdevops.jfrog.io/artifactory',
+    
+    				credentialsId: 'artifactory',
+    				// If Jenkins is configured to use an http proxy, you can bypass the proxy when using this Artifactory server:
+    				bypassProxy: true,
+    				// Configure the connection timeout (in seconds).
+    				// The default value (if not configured) is 300 seconds:
+    				timeout: 300    
+					 )
+			 }
+		 }
+		 
 		 
 		 stage('UI Test'){
 			 steps {
