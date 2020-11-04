@@ -30,26 +30,9 @@ pipeline {
                   deploy adapters: [tomcat8(url: 'http://52.252.0.150:8080/', credentialsId: 'tomcat', path: '' )], contextPath: '/QAWebapp', war: '**/*.war'
 	            }
                  }
-		 stage('Deploy Artifactory') {
-                 steps {
-			 
-			 def server = Artifactory.server "artifactory"
-			 def rtMaven = Artifactory.newMavenBuild()
-    			 def buildInfo 
-			 rtMaven.tool = "maven"			 
-                         rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
-       			 rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
-			    	//id: 'Artifactory-1',
-   				// url: 'https://venkatdevops.jfrog.io/artifactory',
-    
-    				//credentialsId: 'artifactory',
-    				// If Jenkins is configured to use an http proxy, you can bypass the proxy when using this Artifactory server:
-    				//bypassProxy: true,
-    				// Configure the connection timeout (in seconds).
-    				// The default value (if not configured) is 300 seconds:
-    				//timeout: 300             	
-            	        }
-               }
-              	               
-        }
+		         	
+            	        
+               
+	 }        	               
+        
 }
