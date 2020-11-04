@@ -43,17 +43,13 @@ pipeline {
 	            }
                  }
 		 
-		 stage('Deploy Artifact'){
-			 steps{
-				 script{
-				 def server = Artifactory.server "artifactory"
-					 def rtMaven = Artifactory.newMavenBuild()
-					 def buildinfo
-					 server.publishBuildInfo buildInfo
-				 }
-			 }
-		 }
-		         	
+		 stage('UI Test'){
+			 steps {
+				 buildInfo = maven.run pom: 'functionaltest/pom.xml', goals: 'test'
+				 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\functionaltest\\target\\surefire-reports', reportFiles: 'index.html', reportName: 'UI Test Report', reportTitles: ''])
+			 
+			 }		 
+		 }		         	
             	        
                
 	 }        	                       
