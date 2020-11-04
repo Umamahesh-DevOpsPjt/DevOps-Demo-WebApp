@@ -42,6 +42,17 @@ pipeline {
                   deploy adapters: [tomcat8(url: 'http://146.148.76.89:8080/', credentialsId: 'tomcat', path: '' )], contextPath: '/QAWebapp', war: '**/*.war'
 	            }
                  }
+		 
+		 stage('Deploy Artifact'){
+			 steps{
+				 script{
+				 def server = Artifactory.server "artifactory"
+					 def rtMaven = Artifactory.newMavenBuild()
+					 def buildinfo
+					 server.publishBuildInfo buildInfo
+				 }
+			 }
+		 }
 		         	
             	        
                
