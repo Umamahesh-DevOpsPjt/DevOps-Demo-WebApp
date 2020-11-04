@@ -46,7 +46,7 @@ pipeline {
 		 
 		 stage('Deploy Artifact'){
 			 steps{	
-				 rtServer(
+				 rtUpload(
 				id: 'artifactory',
    				 url: 'https://venkatdevops.jfrog.io/artifactory',
     
@@ -71,7 +71,16 @@ pipeline {
 				 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\functionaltest\\target\\surefire-reports', reportFiles: 'index.html', reportName: 'UI Test Report', reportTitles: ''])
 				 }
 			 }		 
-		 }		         	
+		 }
+		 
+		 
+		 stage('Performance Test') {
+			 steps{
+				 
+			 
+			 }
+		 
+		 }
             	        
                
 	 }        	                       
