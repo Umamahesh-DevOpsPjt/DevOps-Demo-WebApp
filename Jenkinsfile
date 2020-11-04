@@ -46,7 +46,7 @@ pipeline {
 		 
 		 stage('Deploy Artifact'){
 			 steps{	
-				 rtUpload(
+				 rtServer(
 				id: 'artifactory',
    				 url: 'https://venkatdevops.jfrog.io/artifactory',
     
