@@ -45,7 +45,7 @@ pipeline {
 		 
 		 stage('UI Test'){
 			 steps {
-				 buildInfo = maven.run pom: 'functionaltest/pom.xml', goals: 'test'
+				 buildInfo = Maven3.6.3.run pom: 'functionaltest/pom.xml', goals: 'test'
 				 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '\\functionaltest\\target\\surefire-reports', reportFiles: 'index.html', reportName: 'UI Test Report', reportTitles: ''])
 			 
 			 }		 
