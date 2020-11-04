@@ -17,21 +17,19 @@ pipeline {
                  	}
                  }
 		 
-		stage('SonarQube Analysis') {
-                 steps {
-                   withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'sonarqube') { 
-     			sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://35.188.155.53:9000/ -Dsonar.sources=. -Dsonar.tests=. -Dsonar.test.inclusions=**/test/java/servlet/createpage_junit.java -Dsonar.exclusions=**/test/java/servlet/createpage_junit.java'
-        			}
-			}
-                }
-		
-		 stage('Quality Gate') {
-			 steps{
-				timeout(time: 1, unit: 'HOURS') {
-                               waitForQualityGate abortPipeline: true 
-				}
-			 }
-		 }
+		stage('Sonarqube') {
+   			 environment {
+        			scannerHome = tool 'SonarQubeScanner'
+   				     }
+                steps {
+                   withSonarQubeEnv('sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                            }
+                    timeout(time: 10, unit: 'MINUTES') {
+                   waitForQualityGate abortPipeline: true
+                         }
+                    }
+		}
 		 
                  stage('Deploy to test') {
                  steps {
