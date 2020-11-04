@@ -50,7 +50,7 @@ pipeline {
 				id: 'artifactory',
    				 url: 'https://venkatdevops.jfrog.io/artifactory',
     
-    				credentialsId: 'artifactory',
+    				credentialsId: 'deploy',
     				// If Jenkins is configured to use an http proxy, you can bypass the proxy when using this Artifactory server:
     				bypassProxy: true,
     				// Configure the connection timeout (in seconds).
