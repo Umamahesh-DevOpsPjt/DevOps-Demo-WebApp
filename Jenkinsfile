@@ -44,21 +44,21 @@ pipeline {
                  }
 		 
 		 
-		// stage('Deploy Artifact'){
-			// steps{	
-				// rtServer(
-				//id: 'artifactory',
-   				// url: 'https://venkatdevops.jfrog.io/artifactory',
+		 stage('Deploy Artifact'){
+			 steps{	
+				 rtServer(
+				id: 'artifactory',
+   				 url: 'https://venkatdevops.jfrog.io/artifactory',
     
-    				//credentialsId: 'artifactory',
+    				credentialsId: 'artifactory',
     				// If Jenkins is configured to use an http proxy, you can bypass the proxy when using this Artifactory server:
-    				//bypassProxy: true,
+    				bypassProxy: true,
     				// Configure the connection timeout (in seconds).
     				// The default value (if not configured) is 300 seconds:
-    				//timeout: 300    
-					// )
-			 //}
-		 //}
+    				timeout: 300    
+					 )
+			}
+		 }
 		 
 		 
 		 stage('UI Test'){
